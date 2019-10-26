@@ -1,0 +1,152 @@
+:root {
+  --bgMain: #ffffff;
+  --borderColor: rgb(30, 22, 145);
+  --fontColor:  rgb(30, 22, 145);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: var(--fontColor);
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('../img/background1.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.stage {
+  display: grid;
+  grid-template-areas: 
+  "gamer gamer gamer"
+  "left center right"
+  "sel    sel    sel"
+  "cont   cont  cont";
+  grid-template-rows: 0.3fr 3fr 1fr 0.5fr;
+  grid-template-columns: 1fr 0.3fr 1fr;
+  width: 70%;
+  height: 75%;
+  /* width: 55%;
+  height: 80%; */
+  background: rgba(0, 0, 0, 0.8);
+  background-size: 100% 100%;
+}
+
+.gamers {
+  grid-area: gamer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.leftZone {
+  padding: 5% 15%;
+  /* background: #000; */
+}
+
+.centerZone {
+  grid-area: center;
+}
+
+.rightZone {
+  padding: 5% 15%;
+  /* background: #000; */
+}
+
+#controlZone {
+  grid-area: cont;
+  background: transparent;
+  color: var(--fontColor);
+  cursor: pointer;
+  border: 1px solid var(--borderColor);
+}
+
+#controlZone:focus {
+  outline: none;
+}
+
+.selectZone {
+  grid-area: sel;
+}
+
+.characters {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+.characterLeft {
+  border: 1px solid rgb(30, 22, 145);
+  cursor: pointer;
+}
+.characterRight {
+  border: 1px solid rgb(30, 22, 145);
+  cursor: pointer;
+}
+
+/* .characterSelLeft {
+  border: 1px solid black;
+}
+
+.characterSelRight {
+  border: 1px solid black;
+} */
+
+.selects {
+  grid-area: sel;
+  display: grid;
+  grid-template-columns: 1fr 0.3fr 1fr;
+}
+
+.select {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 3% 12%;
+}
+
+.charSelLeft {
+  /* border: 1px solid black; */
+  width: 100%;
+  height: 100%;
+}
+
+.charSelRight {
+  /* border: 1px solid black; */
+  width: 100%;
+  height: 100%;
+}
+
+.fightLeft {
+  display: none;
+  background: lightblue;
+  width: 100%;
+  height: 100%;
+}
+
+.fightRight {
+  display: none;
+  background: lightblue;
+  width: 100%;
+  height: 100%;
+}
+
+.opacity {
+  opacity: 0.2;
+}
