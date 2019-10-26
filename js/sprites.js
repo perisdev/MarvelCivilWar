@@ -6,6 +6,20 @@ class Player {
     this.team = [];
   }
 
+  fillPlayerChars = (container, isLeft) => {
+    for (let i = 1; i < 10; i++) {
+      let type = i;
+  
+      let newChar = new Character(i - 1, type, randomStrong(), randomVelocity(), charTypes[type]);
+      if (isLeft)
+        newChar.addViews('0', 'characterLeft', container);
+      else
+        newChar.addViews('0', 'characterRight', container);
+  
+      this.addCharacter(newChar);
+    }
+  };
+
   addCharacter(character) {
     this.characters.push(character);
   }
@@ -15,12 +29,12 @@ class Player {
   }
 
   ready() {
-    return (this.team.length >=3)? true:false;
+    return (this.team.length >= 3) ? true : false;
   }
 
   refreshTeam() {
     // reset team
-    this.team.map(item => item.selDom.remove());
+    this.team.map(item => item.views[1].remove());
     this.team = [];
 
     // filter active characters
@@ -29,18 +43,21 @@ class Player {
     // refresh team
     for (let item of tmpTeam) {
       if (this.name == 'P1')
-        item.addViews(undefined, document.createElement('img'), 'charSelLeft', document.getElementById('selectLeft'));
+        item.addViews('1', 'charSelLeft', document.getElementById('selectLeft'));
       else
-        item.addViews(undefined, document.createElement('img'), 'charSelRight', document.getElementById('selectRight'));
+        item.addViews('1', 'charSelRight', document.getElementById('selectRight'));
 
       this.team.push(item);
     }
   }
 
   reset() {
-    this.characters.map(item => item.charDom.remove());
+    this.characters.map(item => {
+      for(let i = 0; i< 3; i++) 
+        item.views[i]? item.views[i].remove():null;
+    });
+
     this.characters = [];
-    this.characters.map(item => item.selDom.remove());
     this.team = [];
   }
 }
@@ -54,6 +71,12 @@ class Character {
     this.live = 100;
     this.strong = strong;
     this.velocity = velocity;  //ms
+    this.views = {
+      0: null,    // charDom
+      1: null,     // selDom
+      2: null,   // fightDom
+      3: null   // winnerDom
+    }
     this.charDom = null;
     this.selDom = null;
     this.imgs = imgs;
@@ -61,30 +84,24 @@ class Character {
 
   switchState() {
     if (this.state) {
-      this.charDom.className += ' opacity';
+      this.views[0].className += ' opacity';
       this.state = false;
     } else {
-      this.charDom.className = this.charDom.className.replace(' opacity', '');
+      this.views[0].className = this.views[0].className.replace(' opacity', '');
       this.state = true;
     }
     //document.dispatchEvent(new Event("newSel", { "bubbles": true, "cancelable": false }));
   }
 
-  addViews(charDom, selDom, classes, container) {
+  addViews(typeView, classes, container) {
 
-    if (charDom) {
-      this.charDom = charDom;
-      this.charDom.className = classes;
-      this.charDom.src = this.imgs[0];
-      this.charDom.data = this.id;
-      container.appendChild(this.charDom);
+    let newView = document.createElement('img');
+    newView.className = classes;
+    newView.src = this.imgs[typeView];
+    newView.data = this.id;
 
-    } else if (selDom) {
-      this.selDom = selDom;
-      this.selDom.className = classes;
-      this.selDom.src = this.imgs[1];
-      container.appendChild(this.selDom);
-    }
+    this.views[typeView] = newView;
+    container.appendChild(newView);
   }
 
   atack(enemic) {
