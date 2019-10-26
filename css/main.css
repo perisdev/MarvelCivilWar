@@ -35,7 +35,7 @@ main {
   grid-template-rows: 0.3fr 3fr 1fr 0.5fr;
   grid-template-columns: 1fr 0.3fr 1fr;
   width: 70%;
-  height: 75%;
+  height: 90%;
   /* width: 55%;
   height: 80%; */
   background: rgba(0, 0, 0, 0.8);
@@ -118,35 +118,39 @@ img {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 3% 12%;
+  padding: 4% 15%;
 }
 
 .charSelLeft {
-  /* border: 1px solid black; */
+  border: 1px solid var(--borderColor);
   width: 100%;
   height: 100%;
 }
 
 .charSelRight {
-  /* border: 1px solid black; */
+  border: 1px solid var(--borderColor);
   width: 100%;
   height: 100%;
 }
 
-.fightLeft {
-  display: none;
-  background: lightblue;
+.fightZones{
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
+  /* transform: scaleX(-1); */
 }
 
-.fightRight {
-  display: none;
-  background: lightblue;
-  width: 100%;
-  height: 100%;
+.lifeBar {
+  border-radius: 0 0.5em 0.5em 0;
+  text-align: left;
+  font-size: 0.7em;
 }
 
 .opacity {
   opacity: 0.2;
+}
+
+.inNone {
+  display: none;
 }

@@ -1,20 +1,26 @@
-/** START CLASSES */
+/** 
+ * PLAYER
+ * 
+ * stages []  -> [0] charMapZone, [1] fightZone, [2] winnerZone
+ * */
 class Player {
-  constructor(name) {
+  constructor(name, stages) {
     this.name = name;
     this.characters = [];
     this.team = [];
+    this.stage = stages;
+    this.lifeBar = null;
   }
 
-  fillPlayerChars = (container, isLeft) => {
+  fillPlayerChars = (isLeft) => {
     for (let i = 1; i < 10; i++) {
       let type = i;
   
       let newChar = new Character(i - 1, type, randomStrong(), randomVelocity(), charTypes[type]);
       if (isLeft)
-        newChar.addViews('0', 'characterLeft', container);
+        newChar.addViews('0', 'characterLeft', this.stage[0]);
       else
-        newChar.addViews('0', 'characterRight', container);
+        newChar.addViews('0', 'characterRight', this.stage[0]);
   
       this.addCharacter(newChar);
     }
@@ -46,12 +52,14 @@ class Player {
         item.addViews('1', 'charSelLeft', document.getElementById('selectLeft'));
       else
         item.addViews('1', 'charSelRight', document.getElementById('selectRight'));
-
+      
       this.team.push(item);
     }
   }
 
   reset() {
+    this.lifeBar? this.lifeBar.view.remove():null;
+
     this.characters.map(item => {
       for(let i = 0; i< 3; i++) 
         item.views[i]? item.views[i].remove():null;
@@ -62,13 +70,13 @@ class Player {
   }
 }
 
-
+/** CHARACTER */
 class Character {
   constructor(id, type, strong, velocity, imgs) {
     this.id = id;
     this.state = true;
     this.type = type;
-    this.live = 100;
+    this.life = 100;
     this.strong = strong;
     this.velocity = velocity;  //ms
     this.views = {
@@ -93,24 +101,54 @@ class Character {
     //document.dispatchEvent(new Event("newSel", { "bubbles": true, "cancelable": false }));
   }
 
-  addViews(typeView, classes, container) {
+  addViews(typeView, classes, container, isLeft = true) {
 
     let newView = document.createElement('img');
     newView.className = classes;
     newView.src = this.imgs[typeView];
     newView.data = this.id;
 
+    (!isLeft)? newView.setAttribute('style', 'transform: scaleX(-1)'):null;
+
     this.views[typeView] = newView;
     container.appendChild(newView);
   }
 
   atack(enemic) {
-    return enemic.live - this.strong;
+    enemic.life = enemic.life - this.strong;
+    return (enemic.life <= 0)? 0:enemic.life;
   }
 }
 
-/** END - CLASSES */
+/** LIFE BAR */
+class LifeBar {
+  constructor(tittle, value, color){
+    this.tittle = tittle;
+    this.value = value;
+    this.view = null;
+    this.color = color;
+  }
 
+  addView (container, classes){
+    let newView = document.createElement('div');
+    newView.className = classes;
+    newView.innerHTML = this.tittle;
+    newView.setAttribute('style', `background: ${this.color}; width: ${this.value}%`);
+    this.view = newView;
+    container.appendChild(newView);    
+  }
+
+  changeColor(color){
+    this.color = color;
+    let oldStyle = this.view.getAttribute('style').split(';');  // [0] background [1] width
+    this.view.setAttribute('style', `background: ${color}; ${oldStyle[1]}`);
+  }
+  changeValue(value){
+    this.value = value;
+    let oldStyle = this.view.getAttribute('style').split(';');  // [0] background [1] width
+    this.view.setAttribute('style', `${oldStyle[0]}; width: ${value}%`);
+  }
+}
 
 
 
