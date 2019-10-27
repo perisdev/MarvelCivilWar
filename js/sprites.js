@@ -115,8 +115,9 @@ class Character {
   }
 
   atack(enemic) {
-    enemic.life = enemic.life - this.strong;
-    return (enemic.life <= 0)? 0:enemic.life;
+    let tmpLife = enemic.life - this.strong;
+    enemic.life = (tmpLife > 0)? tmpLife:0;
+    return enemic.life;
   }
 }
 
@@ -144,7 +145,7 @@ class LifeBar {
     this.view.setAttribute('style', `background: ${color}; ${oldStyle[1]}`);
   }
   changeValue(value){
-    this.value = value;
+    this.value = (value > 0)? value:0;
     let oldStyle = this.view.getAttribute('style').split(';');  // [0] background [1] width
     this.view.setAttribute('style', `${oldStyle[0]}; width: ${value}%`);
   }
