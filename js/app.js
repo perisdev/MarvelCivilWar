@@ -2,11 +2,11 @@
 const button = document.getElementById('controlZone');
 
 const charTypes = {
-  1: ['./img/IronMan0.png', './img/IronMan0.png', './img/IronMan0.png', './img/IronMan3.png'],
+  1: ['./img/IronMan0.png', './img/IronMan0.png', './img/IronMan2.png', './img/IronMan3.png'],
   2: ['./img/Hulk0.png', './img/Hulk0.png', './img/Hulk2.png', './img/Hulk3.png'],
-  3: ['./img/CaptainAmerica0.png', './img/CaptainAmerica0.png', './img/CaptainAmerica0.png', './img/CaptainAmerica.png3'],
-  4: ['./img/MsMarvel0.png', './img/MsMarvel0.png', './MsMarvel2.png', './MsMarvel3.png'],
-  5: ['./img/Spider-Man0.png', './img/Spider-Man0.png', './Spider-Man2.png', './Spider-Man3.png'],
+  3: ['./img/CaptainAmerica0.png', './img/CaptainAmerica0.png', './img/CaptainAmerica2.png', './img/CaptainAmerica.png3'],
+  4: ['./img/MsMarvel0.png', './img/MsMarvel0.png', './img/MsMarvel2.png', './img/MsMarvel3.png'],
+  5: ['./img/Spider-Man0.png', './img/Spider-Man0.png', './img/Spider-Man2.png', './img/Spider-Man3.png'],
   6: ['./img/WarMachine0.png', './img/WarMachine0.png', './img/WarMachine2.png', './img/WarMachine3.png'],
   7: ['./img/DarelDevil0.png', './img/DarelDevil0.png', './img/DarelDevil2.png', './img/DarelDevil3.png'],
   8: ['./img/Wolverine0.png', './img/Wolverine0.png', './img/Wolverine2.png', './img/Wolverine3.png'],

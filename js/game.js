@@ -6,13 +6,13 @@ class Game {
     this.player1 = new Player('P1', [
       document.getElementById('charactersLeft'),
       document.getElementById('fightLeft'),
-      document.getElementById('')
+      document.getElementById('winnerZoneLeft')
     ]);
 
     this.player2 = new Player('P2', [
       document.getElementById('charactersRight'),
       document.getElementById('fightRight'),
-      document.getElementById('')
+      document.getElementById('winnerZoneRight')
     ]);
   }
 
@@ -25,7 +25,7 @@ class Game {
 
       case 'start':
         this.switchToStage(state);
-        
+
         // reset players
         this.player1.reset();
         this.player2.reset();
@@ -45,7 +45,7 @@ class Game {
         break;
       case 'fight':
         button.disabled = true;
-        
+
         this.switchToStage(state);
 
         // add Bars Life
@@ -56,22 +56,22 @@ class Game {
 
         // fight loop
         this.player1.team[0].addViews('2', 'fighterLeft', document.getElementById('fightLeft'));
-        this.player2.team[0].addViews('2', 'fighterRight', document.getElementById('fightRight'), false);   
+        this.player2.team[0].addViews('2', 'fighterRight', document.getElementById('fightRight'), false);
 
         const P1 = setInterval(() => {
           let newValue = this.player1.team[0].atack(this.player2.team[0]);
           this.player2.lifeBar.changeValue(newValue);
-          if (newValue == 0){
+          if (newValue == 0) {
             console.log('P1 WIN !!');
             clearInterval(P1);
             clearInterval(P2);
           }
         }, this.player1.team[0].velocity);
-        
+
         const P2 = setInterval(() => {
           let newValue = this.player2.team[0].atack(this.player1.team[0]);
           this.player1.lifeBar.changeValue(newValue);
-          if (newValue == 0){
+          if (newValue == 0) {
             console.log('P2 WIN !!');
             clearInterval(P1);
             clearInterval(P2);
@@ -80,9 +80,12 @@ class Game {
 
         console.log("esto sigue...");
 
+        //this.switchState('winner');
+
+        button.disabled = false;
         break;
       case 'winner':
-
+        this.switchToStage(state);
         break;
       default:
         break;
@@ -98,16 +101,25 @@ class Game {
       case 'start':
         this.changeInNone(this.player1.stage[0], false);
         this.changeInNone(this.player1.stage[1], true);
+        this.changeInNone(this.player1.stage[2], true);
+
         this.changeInNone(this.player2.stage[0], false);
         this.changeInNone(this.player2.stage[1], true);
+        this.changeInNone(this.player2.stage[2], true);
         break;
       case 'fight':
         this.changeInNone(this.player1.stage[0], true);
         this.changeInNone(this.player1.stage[1], false);
+
         this.changeInNone(this.player2.stage[0], true);
         this.changeInNone(this.player2.stage[1], false);
         break;
       case 'winner':
+        this.changeInNone(this.player1.stage[1], true);
+        this.changeInNone(this.player1.stage[2], false);
+
+        this.changeInNone(this.player2.stage[1], true);
+        this.changeInNone(this.player2.stage[2], false);
         break;
       default:
         break;
