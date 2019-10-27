@@ -76,10 +76,8 @@ class Game {
 
         // fight process
         this.figth().then(winner => {
-          console.log(winner);          // toDelete
           this.scores.winner = winner[0];
           this.scores.score = winner[1];
-          console.log(this.scores);     // toDelete
 
           // add winner && loser views
           if (winner[0] == 'E1'){
@@ -217,7 +215,6 @@ class Game {
 
       // fight
       winner = await this.roundPromise(i);
-      console.log(`round ${i} -> ${winner} win!!`);     // toDelete
       (winner === 'E1') ? pointsT1++ : pointsT2++;
 
       this.scores.rounds[i] = `round ${i + 1} -> ${winner} win!!`;

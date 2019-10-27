@@ -20,6 +20,7 @@ body {
   background: #000;
 }
 
+
 main {
   display: flex;
   align-items: center;
@@ -39,7 +40,9 @@ main {
   height: 90%;
   /* width: 55%;
   height: 80%; */
-  background: rgba(0, 0, 0, 0.8);
+  /* background: rgba(0, 0, 0, 0.8); */
+  
+  background-image: url('../img/marvel_heroes1.png');
   background-size: 100% 100%;
 }
 
