@@ -7,6 +7,7 @@ class Player {
   constructor(name, stages) {
     this.name = name;
     this.characters = [];
+    this.charOrder = 0;
     this.team = [];
     this.stage = stages;
     this.lifeBar = null;
@@ -44,7 +45,7 @@ class Player {
     this.team = [];
 
     // filter active characters
-    let tmpTeam = this.characters.filter((item) => !item.state);
+    let tmpTeam = this.characters.filter((item) => !item.state).sort((a, b) => a.order - b.order);
 
     // refresh team
     for (let item of tmpTeam) {
@@ -67,6 +68,7 @@ class Player {
 
     this.characters = [];
     this.team = [];
+    this.charOrder = 0;
   }
 }
 
@@ -74,6 +76,7 @@ class Player {
 class Character {
   constructor(id, type, strong, velocity, imgs) {
     this.id = id;
+    this.order = 99;
     this.state = true;
     this.type = type;
     this.life = 100;
@@ -90,13 +93,15 @@ class Character {
     this.imgs = imgs;
   }
 
-  switchState() {
+  switchState(order) {
     if (this.state) {
       this.views[0].className += ' opacity';
       this.state = false;
+      this.order = order;
     } else {
       this.views[0].className = this.views[0].className.replace(' opacity', '');
       this.state = true;
+      this.order = 99; 
     }
     //document.dispatchEvent(new Event("newSel", { "bubbles": true, "cancelable": false }));
   }

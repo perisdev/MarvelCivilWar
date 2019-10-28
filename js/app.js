@@ -22,7 +22,6 @@ const randomType = () => Math.floor(Math.random() * (10 - 1) + 1);
 /** instantiating && starting GAME */
 let game = new Game('start');
 game.switchState('start');
-///
 
 
 /** start - control listeners */

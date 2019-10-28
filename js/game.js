@@ -109,6 +109,7 @@ class Game {
 
         break;
       case 'start':
+        button.disabled = true;
         this.changeInNone(this.player1.stage[0], false);
         this.changeInNone(this.player1.stage[1], true);
         this.changeInNone(this.player1.stage[2], true);
@@ -158,7 +159,7 @@ class Game {
 
   readyToFigth(e, player) {
     if (player.getTeamLength() < 3 || !player.characters[e.target.data].state) {
-      player.characters[e.target.data].switchState();
+      player.characters[e.target.data].switchState(player.charOrder++);
       player.refreshTeam();
 
       if (this.player1.ready() && this.player2.ready()) {
